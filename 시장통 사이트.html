@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daionsoft | Build, Ship, Operate</title>
+    <!-- 폰트 적용: 프리텐다드 -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <style>
+        :root {
+            /* 완전 딥 블랙 베이스 & 소프트웨어 회사의 날카로운 형광 블루/그린 포인트 */
+            --bg-color: #000000;
+            --surface-color: #0f1012;
+            --surface-hover: #16181b;
+            --border-color: #24272c;
+            --text-primary: #ffffff;
+            --text-secondary: #9aa0a6;
+            --accent-color: #74bea9; /* 사이버틱한 네온 스카이블루 포인트 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard Variable', Pretendard, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+            letter-spacing: -0.3px;
+        }
+
+        /* 🌟 사용자님 요청: '강한 영역 3가지'와 '개발 방식 4개' 소제목에만 네온(Glow) 빛 번짐 효과 적용 */
+        .service-box h3, .workflow-step h3 {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.35), 
+                         0 0 20px rgba(255, 255, 255, 0.15);
+        }
+
+        /* ----- 헤더 (네비게이션) ----- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 24px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ----- 공통 섹션 ----- */
+        section {
+            padding: 140px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+        
+        .section-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+        }
+
+        /* ----- 1. 배너 (Home) ----- */
+        #banner {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            border-bottom: none;
+            padding-top: 100px; /* 헤더 높이만큼 띄움 */
+        }
+
+        #banner h1 {
+            font-size: 3rem; /* 기존 4.5rem에서 축소됨 (원하는 크기로 이 숫자를 변경하세요) */
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 30px;
+            position: relative; /* 장식선을 위해 추가 */
+        }
+
+        /* 🟢 사용자님 의견 수렴: 배너 h1 위를 장식하는 민트색 포인트 선 (작대기) */
+        #banner h1::before {
+            content: '';
+            display: block;
+            width: 60px; /* 작대기 가로 길이 */
+            height: 4px; /* 작대기 굵기 */
+            background-color: var(--accent-color); /* 골라주셨던 초록/민트색 포인트 자동 적용 */
+            margin-bottom: 30px; /* 선과 아래 글자 사이의 간격 */
+        }
+
+        #banner p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-bottom: 50px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--border-color);
+            background: transparent;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-color);
+            background: rgba(0, 229, 255, 0.05); /* 포인트 컬러 배경색 투명도 5% */
+            color: var(--accent-color);
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-color);
+            border-color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--bg-color);
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        /* ----- 2. Services (Daionsoft가 강한 영역) ----- */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-box {
+            background-color: var(--surface-color);
+            padding: 50px 40px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .service-box:hover {
+            background-color: var(--surface-hover);
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        .service-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-box h3::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background-color: var(--accent-color);
+        }
+
+        .service-box p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* ----- 3. Project (대표 프로젝트) ----- */
+        #project .project-wrap {
+            display: flex;
+            gap: 60px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 60px;
+        }
+
+        .project-info {
+            flex: 1;
+        }
+
+        .project-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .project-info p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .project-list {
+            list-style: none;
+            color: var(--text-secondary);
+        }
+
+        .project-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .project-list li::before {
+            content: '■';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.8rem;
+        }
+
+        .project-tech {
+            flex: 0.8;
+            padding-left: 60px;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .project-tech h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tags span {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ----- 4. Workflow (개발 방식) ----- */
+        .workflow-wrap {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .workflow-step {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .step-num {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-family: monospace;
+        }
+
+        .workflow-step h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+
+        .workflow-step p {
+            color: var(--text-secondary);
+        }
+
+        /* ----- 5. Overview (Footer 영역) ----- */
+        footer {
+            padding: 100px 60px;
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        footer h2 {
+            font-size: 2rem; /* 제가 직접 2.5rem에서 2rem으로 줄여드렸습니다! (원하시는 크기로 이 숫자를 변경하세요) */
+            font-weight: 800;
+            margin-bottom: 70px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+            margin-bottom: 80px;
+        }
+
+        .footer-box h4 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .footer-box p, .footer-box ul {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .footer-box ul {
+            list-style: none;
+        }
+
+        .footer-box ul li {
+            margin-bottom: 10px;
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        /* ----- 반응형 디자인 (모바일) ----- */
+        @media (max-width: 900px) {
+            #banner h1 { font-size: 1.5rem; } /* 모바일 화면일 때의 폰트 크기입니다 */
+            footer h2 { font-size: 2.2rem; } /* 모바일 화면일 때 Footer 크기도 직접 줄여 추가했습니다! */
+            #project .project-wrap { flex-direction: column; }
+            .project-tech { padding-left: 0; border-left: none; border-top: 1px solid var(--border-color); padding-top: 40px; }
+            .workflow-wrap { grid-template-columns: 1fr; gap: 0; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 20px; flex-direction: column; gap: 15px; }
+            nav ul { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            section { padding: 80px 20px; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#banner" class="logo">Daionsoft</a>
+        <nav>
+            <ul>
+                <li><a href="#banner">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#project">Project</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home (Banner) -->
+    <section id="banner">
+        <h1>현장에서 바로 쓰이는 앱과 플랫폼을 
+           <br>끝까지 만듭니다.</h1>
+        <p>Daionsoft는 모바일 앱, 웹, 백엔드, 데이터, 배포를 따로 분리하지 않습니다.<br> 실제 운영이 필요한 서비스에서 기획, 구현, 서버 세팅, 런칭까지 이어지는 흐름을 한 과정으로 연결합니다.</p>
+        <div class="btn-group">
+            <a href="#project" class="btn btn-primary">대표 프로젝트 보기</a>
+            <a href="#workflow" class="btn">개발 방식 보기</a>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="section-header">
+            <h2 class="section-title">Daionsoft가 강한 영역</h2>
+            <p class="section-desc">기획안을 예쁘게 포장하기보다, 서비스가 실제로 돌아가게 만드는 데 집중합니다.</p>
+        </div>
+        
+        <div class="grid-3">
+            <div class="service-box">
+                <h3>Product Build</h3>
+                <p>모바일 앱, 웹 프론트, 운영 화면을 하나의 사용자 흐름으로 설계합니다.</p>
+            </div>
+            <div class="service-box">
+                <h3>Backend & Data</h3>
+                <p>Python 기반 API, 데이터 구조, 인증 흐름, PostgreSQL 운영을 정리합니다.</p>
+            </div>
+            <div class="service-box">
+                <h3>Shipping & Ops</h3>
+                <p>서버 세팅, HTTPS, Git 기반 배포, 릴리즈 운영까지 제품 완성도를 끌어올립니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project -->
+    <section id="project">
+        <div class="section-header">
+            <h2 class="section-title">대표 프로젝트</h2>
+            <p class="section-desc">Daionsoft가 어떤 문제를 선호하고 어떤 결과물을 가져오는지 보여주는 예시입니다.</p>
+        </div>
+
+        <div class="project-wrap">
+            <div class="project-info">
+                <span class="highlight" style="font-weight: 700; display: block; margin-bottom: 10px;">Project Snapshot</span>
+                <h3>시장통 | 전통시장 탐색 서비스</h3>
+                <p>오프라인 공간의 복잡한 정보를 디지털 구조로 바꾸는 일은 단순한 화면 제작 작업이 아닙니다.  매장과 품목 데이터 모델, 탐색 UX, API 설계, 서버 배포, 운영 가이드까지 이어져야 실제 서비스가 됩니다. <br><br>Daionsoft는 이 연결 구간을 책임지는 회사입니다.</p>
+                <ul class="project-list">
+                    <li>문제 정의부터 구조화까지 연결</li>
+                    <li>모바일 앱과 웹을 동시에 고려한 설계</li>
+                    <li>지도 기반 탐색 경험과 현장 사용성 강화</li>
+                    <li>서버 배포와 운영 표준화까지 포함</li>
+                </ul>
+            </div>
+            <div class="project-tech">
+                <h4>자주 다루는 범위</h4>
+                <div class="tech-tags">
+                    <span>React Native</span>
+                    <span>Next.js</span>
+                    <span>Python API</span>
+                    <span>PostgreSQL</span>
+                    <span>Nginx</span>
+                    <span>AWS</span>
+                </div>
+                <div style="margin-top: 40px;">
+                    <h4 style="margin-bottom: 10px; font-size: 1rem; color: var(--text-secondary);">중요하게 보는 것</h4>
+                    <p style="font-size: 0.95rem; color: var(--text-secondary);">기능 데모보다 실제 배포, 릴리즈 안정성, 이후 수정 가능한 운영 구조를 더 중요하게 봅니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow -->
+    <section id="workflow">
+        <div class="section-header">
+            <h2 class="section-title">개발 방식</h2>
+            <p class="section-desc">빠르게 만든 다음 방치하지 않고, 운영 가능한 형태로 정리합니다.</p>
+        </div>
+
+        <div class="workflow-wrap">
+            <div class="workflow-step">
+                <div class="step-num">01.</div>
+                <h3>Scope Fast</h3>
+                <p>핵심 기능을 먼저 좁히고, 실제 사용 흐름 기준으로 우선순위를 잡습니다.</p>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">02.</div>
+                <h3>Build Lean</h3>
+                <p>복잡한 요구사항도 제품 구조와 데이터 흐름으로 빠르게 단순화합니다.</p>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">03.</div>
+                <h3>Ship Solid</h3>
+                <p>서버, 도메인, HTTPS, 배포 동선까지 묶어서 실서비스 상태로 만듭니다.</p>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">04.</div>
+                <h3>Operate Calm</h3>
+                <p>수정과 릴리즈가 이어질 수 있게 운영 기준과 다음 액션까지 정리합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <h2>기획보다 먼저, 돌아가는 결과물로 <br> 신뢰를 만듭니다.</h2>
+        
+        <div class="footer-grid">
+            <div class="footer-box">
+                <h4>What We Build</h4>
+                <ul>
+                    <li>모바일 앱</li>
+                    <li>웹 서비스</li>
+                    <li>Python 백엔드</li>
+                    <li>AWS 배포 환경</li>
+                </ul>
+            </div>
+            <div class="footer-box">
+                <h4>How We Work</h4>
+                <p>로컬 개발, 서버 세팅, HTTPS, 릴리즈 흐름, 운영 안정성까지 이어지는 실전형 개발 프로세스를 선호합니다.</p>
+            </div>
+            <div class="footer-box">
+                <h4>Current Direction</h4>
+                <p>Daionsoft는 로컬 커머스와 현장형 서비스처럼 복잡하지만 실사용 가치가 큰 문제를 다루는 팀으로 성장하고 있습니다.</p>
+            </div>
+        </div>
+
+        <p class="copyright">© Daionsoft. All rights reserved. Base theme by HTML5 UP</p>
+    </footer>
+
+</body>
+</html>
